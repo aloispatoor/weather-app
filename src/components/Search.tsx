@@ -4,14 +4,13 @@ import { useDispatch } from 'react-redux';
 import { setAlert } from '../store/actions/alertActions';
 import { getWeather, setLoading } from '../store/actions/weatherActions';
 import {AppDispatch} from "../store";
-import {UnknownAction} from "@reduxjs/toolkit";
 
 interface SearchProps {
     title: string;
 }
 
 const Search: FC<SearchProps> = ({ title }) => {
-    const dispatch : AppDispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch<AppDispatch>();
     const [city, setCity] = useState('');
 
     const changeHandler = (e: FormEvent<HTMLInputElement>) => {
@@ -22,11 +21,10 @@ const Search: FC<SearchProps> = ({ title }) => {
         e.preventDefault();
 
         if(city.trim() === '') {
-            // @ts-ignore
             return dispatch(setAlert("Il faut donner un nom de ville quand même"));
         }
 
-        dispatch(setLoading() as UnknownAction);
+        dispatch(setLoading());
         dispatch(getWeather(city));
         setCity('');
     }

@@ -60,16 +60,19 @@ export interface WeatherState {
 
 interface GetWeatherAction {
     type: typeof GET_WEATHER;
-    payload?: WeatherData;
+    payload: WeatherData;
+    [key: string]: any;
 }
 
 interface SetLoadingAction {
     type: typeof SET_LOADING;
+    [key: string]: any;
 }
 
 interface SetErrorAction {
     type: typeof SET_ERROR;
-    payload?: string;
+    payload: string;
+    [key: string]: any;
 }
 
 export type WeatherAction = GetWeatherAction | SetLoadingAction | SetErrorAction;

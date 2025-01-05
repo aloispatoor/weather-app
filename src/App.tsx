@@ -6,7 +6,7 @@ import Weather from "./components/Weather";
 import Alert from "./components/Alert";
 import {setAlert} from "./store/actions/alertActions";
 import {setError} from "./store/actions/weatherActions";
-import {UnknownAction} from "@reduxjs/toolkit";
+
 
 function App() {
     const dispatch: AppDispatch = useDispatch<AppDispatch>();
@@ -15,16 +15,12 @@ function App() {
     const error = useSelector((state: RootState) => state.weather.error);
     const alertMsg = useSelector((state: RootState) => state.alert.message);
 
-
     return (
           <div>
               <Search title="Entrer le nom d'une ville et cliquer sur Rechercher" />
-              {loading ?
-                  <h2>Chargement...</h2>
-                  : weatherData && <Weather data={weatherData} />
-              }
+              {loading ? <h2>Chargement...</h2> : weatherData && <Weather data={weatherData} />}
               {alertMsg && <Alert message={alertMsg} onClose={() => dispatch(setAlert(''))} />}
-              {error && <Alert message={error} onClose={() => dispatch(setError() as UnknownAction)} />}
+              {error && <Alert message={error} onClose={() => dispatch(setError(''))} />}
           </div>
       );
 }
