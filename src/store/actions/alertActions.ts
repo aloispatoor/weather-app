@@ -1,4 +1,4 @@
-import {AlertAction, SET_ALERT} from "../types";
+import { SET_ALERT, AlertAction } from '../types';
 
 export const setAlert = (message: string): AlertAction => {
     return {

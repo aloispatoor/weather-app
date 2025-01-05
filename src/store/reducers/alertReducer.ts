@@ -1,16 +1,22 @@
-import {AlertAction, AlertState, SET_ALERT} from "../types";
+import { AlertState } from "../types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: AlertState = {
     message: ''
-};
-
-export default (state = initialState, action: AlertAction): AlertState => {
-    switch(action.type) {
-        case SET_ALERT:
-            return {
-                message: action.payload
-            }
-        default:
-            return state;
-    }
 }
+
+const alertSlice = createSlice({
+    name: 'alert',
+    initialState,
+    reducers: {
+        setAlert(
+            state,
+            action: PayloadAction<{ message: string }>
+        ) {
+            state.message = action.payload.message;
+        },
+    },
+});
+
+export const { setAlert } = alertSlice.actions;
+export default alertSlice.reducer;

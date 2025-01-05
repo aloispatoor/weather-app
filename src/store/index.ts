@@ -1,17 +1,16 @@
-import { combineReducers } from 'redux';
-import weatherReducer from "./reducers/weatherReducer";
-import alertReducer from "./reducers/alertReducer";
+import weatherReducer from './reducers/weatherReducer';
+import alertReducer from './reducers/alertReducer';
 import {configureStore} from "@reduxjs/toolkit";
 
-const rootReducer = combineReducers({
-    weather: weatherReducer,
-    alert: alertReducer
-});
-
 const store = configureStore({
-    reducer: rootReducer
+    reducer: {
+        alert: alertReducer,
+        weather: weatherReducer,
+    },
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
 
 export default store;

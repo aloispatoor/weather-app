@@ -1,28 +1,34 @@
-import React, {FC, FormEvent, useState} from "react";
-import {useDispatch} from "react-redux";
-import {setAlert} from "../store/actions/alertActions";
-import {getWeather, setLoading} from "../store/actions/weatherActions";
+import React, { FC, useState, FormEvent } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { setAlert } from '../store/actions/alertActions';
+import { getWeather, setLoading } from '../store/actions/weatherActions';
+import {AppDispatch} from "../store";
+import {UnknownAction} from "@reduxjs/toolkit";
 
 interface SearchProps {
     title: string;
 }
 
 const Search: FC<SearchProps> = ({ title }) => {
-    const dispatch = useDispatch();
-    const [city, setCity] = useState();
-    const changeHandler = (e: FormEvent<HTMLInputElement>)=> {
+    const dispatch : AppDispatch = useDispatch();
+    const [city, setCity] = useState('');
+
+    const changeHandler = (e: FormEvent<HTMLInputElement>) => {
         setCity(e.currentTarget.value);
     }
+
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(city.trim() === ""){
-            return dispatch(setAlert("Il faut obligatoirement saisir une ville"));
+        if(city.trim() === '') {
+            // @ts-ignore
+            return dispatch(setAlert("Il faut donner un nom de ville quand même"));
         }
 
-        dispatch(setLoading());
+        dispatch(setLoading() as UnknownAction);
         dispatch(getWeather(city));
-        setCity("");
+        setCity('');
     }
     return (
         <section>

@@ -4,10 +4,10 @@ export const SET_ERROR = 'SET_ERROR';
 export const SET_ALERT = 'SET_ALERT';
 
 export interface Weather {
+    description: string;
+    icon: string;
     id: number;
     main: string;
-    icon: string;
-    description: string;
 }
 
 export interface WeatherData {
@@ -30,10 +30,6 @@ export interface WeatherData {
         temp_max: number;
         temp_min: number;
     };
-    wind: {
-        speed: number;
-        deg: number;
-    };
     name: string;
     sys: {
         country: string;
@@ -45,6 +41,10 @@ export interface WeatherData {
     timezone: number;
     visibility: number;
     weather: Weather[];
+    wind: {
+        speed: number;
+        deg: number;
+    };
 }
 
 export interface WeatherError {
@@ -60,7 +60,7 @@ export interface WeatherState {
 
 interface GetWeatherAction {
     type: typeof GET_WEATHER;
-    payload: WeatherData;
+    payload?: WeatherData;
 }
 
 interface SetLoadingAction {
@@ -69,7 +69,7 @@ interface SetLoadingAction {
 
 interface SetErrorAction {
     type: typeof SET_ERROR;
-    payload: string;
+    payload?: string;
 }
 
 export type WeatherAction = GetWeatherAction | SetLoadingAction | SetErrorAction;
@@ -77,6 +77,7 @@ export type WeatherAction = GetWeatherAction | SetLoadingAction | SetErrorAction
 export interface AlertAction {
     type: typeof SET_ALERT;
     payload: string;
+    [key: string]: any;
 }
 
 export interface AlertState {

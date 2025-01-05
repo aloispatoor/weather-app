@@ -1,31 +1,30 @@
-import {GET_WEATHER, SET_ERROR, SET_LOADING, WeatherAction, WeatherState} from "../types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {WeatherData, WeatherState} from '../types';
 
 const initialState: WeatherState = {
     data: null,
     loading: false,
     error: '',
-}
+};
 
-export default (state = initialState, action: WeatherAction): WeatherState => {
-    switch(action.type) {
-        case GET_WEATHER:
-            return {
-                data: action.payload,
-                loading: false,
-                error: ''
-            }
-        case SET_LOADING:
-            return {
-                ...state,
-                loading: true
-            }
-        case SET_ERROR:
-            return {
-                ...state,
-                error: action.payload,
-                loading: false
-            }
-        default:
-            return state;
-    }
-}
+const weatherSlice = createSlice({
+    name: 'weather',
+    initialState,
+    reducers: {
+        getWeather(state, action: PayloadAction<WeatherData>) {
+            state.data = action.payload;
+            state.loading = false;
+            state.error = '';
+        },
+        setLoading(state) {
+            state.loading = true;
+        },
+        setError(state, action: PayloadAction<string>) {
+            state.error = action.payload;
+            state.loading = false;
+        },
+    },
+});
+
+export const { getWeather, setLoading, setError } = weatherSlice.actions;
+export default weatherSlice.reducer;

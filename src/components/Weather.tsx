@@ -27,6 +27,12 @@ const Weather: FC<WeatherProps> = ({ data }) => {
             <li className="level-item">
                 <p>Humidité</p>
                 <p>{data.main.humidity}</p>
+            </li><li className="level-item">
+                <p>Pression atmosphérique</p>
+                <p>{data.main.pressure}</p>
+            </li><li className="level-item">
+                <p>Vent</p>
+                <p>{data.wind.speed} m/s</p>
             </li>
         </ul>
     </section>
